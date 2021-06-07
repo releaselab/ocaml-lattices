@@ -1,0 +1,5 @@
+(tests
+ (names int flat interval pair powerset reverse_powerset sign taint with_top)
+ (libraries lattices core_kernel qcheck)
+ (preprocess
+  (pps ppx_deriving.eq)))

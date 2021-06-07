@@ -1,0 +1,13 @@
+(library
+ (name lattices)
+ (public_name lattices)
+ (libraries core_kernel bignum)
+ (inline_tests)
+ (preprocess
+  (pps
+   ppx_deriving.ord
+   ppx_deriving.eq
+   ppx_sexp_conv
+   ppx_string
+   ppx_inline_test))
+ (modules_without_implementation sig))
