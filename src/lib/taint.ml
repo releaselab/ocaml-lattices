@@ -1,10 +1,5 @@
-include Flat.Make (struct
-  type t = bool
-
-  let to_string = string_of_bool
-
-  let equal = Bool.equal
-end)
+open Core_kernel
+include Flat.Make (Bool)
 
 let join_taint x y =
   let open Flat in

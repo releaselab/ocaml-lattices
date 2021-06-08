@@ -1,7 +1,7 @@
 open QCheck
 
 module L = Flat.Make (struct
-  type t = Lattices.Sign.sign
+  type t = Lattices.Sign.sign [@@deriving sexp_of]
 
   let gen = Gen.oneofl [ Lattices.Sign.Neg; Pos; Zero ]
 

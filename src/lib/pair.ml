@@ -1,5 +1,5 @@
 module Make (L1 : Sig.S) (L2 : Sig.S) = struct
-  type t = L1.t * L2.t
+  type t = L1.t * L2.t [@@deriving sexp_of]
 
   let bottom = (L1.bottom, L2.bottom)
 

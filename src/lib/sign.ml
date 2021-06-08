@@ -1,7 +1,7 @@
-type sign = Zero | Pos | Neg [@@deriving eq]
+type sign = Zero | Pos | Neg [@@deriving eq, sexp_of]
 
 include Flat.Make (struct
-  type t = sign [@@deriving eq]
+  type t = sign [@@deriving eq, sexp_of]
 
   let to_string = function Zero -> "0" | Pos -> "+" | Neg -> "-"
 end)

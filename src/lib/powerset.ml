@@ -22,7 +22,7 @@ struct
 
   module Set = Set.Make (D)
 
-  type t = Set.t
+  type t = Set.t [@@deriving sexp_of]
 
   let bottom = Set.empty
 
@@ -53,7 +53,7 @@ struct
 
   module Set = Set.Make (D)
 
-  type t = Set.t
+  type t = Set.t [@@deriving sexp_of]
 
   let bottom = Set.of_list bottom
 

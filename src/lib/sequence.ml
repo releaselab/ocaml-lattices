@@ -1,7 +1,7 @@
 open Core_kernel
 
 module Make (L : Sig.S) = struct
-  type t = L.t list
+  type t = L.t list [@@deriving sexp_of]
 
   let bottom : t = []
 

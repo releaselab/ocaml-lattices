@@ -1,5 +1,5 @@
 module type S = sig
-  type t
+  type t [@@deriving sexp_of]
 
   val bottom : t
 

@@ -3,6 +3,8 @@ open Core_kernel
 module Make (D : sig
   include Comparable.S
 
+  include Sexpable.S with type t := t
+
   val to_string : t -> string
 end) (B : sig
   val bottom_elems : Set.M(D).t

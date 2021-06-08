@@ -3,6 +3,8 @@ open Core_kernel
 module Make (D : sig
   include Comparable.S
 
+  include Sexpable.S with type t := t
+
   val to_string : t -> string
 end) (B : sig
   val bottom_elems : Set.M(D).t
@@ -11,13 +13,14 @@ end)
 struct
   exception Incompatible_arguments of string
 
-  type t = L.t Map.M(D).t
+  module Map = Map.Make (D)
+
+  type t = L.t Map.t [@@deriving sexp_of]
 
   let bottom =
     Set.fold
       ~f:(fun map x -> Map.set map ~key:x ~data:L.bottom)
-      B.bottom_elems
-      ~init:(Map.empty (module D))
+      B.bottom_elems ~init:Map.empty
 
   let join x y =
     Map.mapi x ~f:(fun ~key ~data ->

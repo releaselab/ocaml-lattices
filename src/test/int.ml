@@ -2,7 +2,7 @@ open Core_kernel
 open QCheck
 
 module L = struct
-  type t = Bottom | I of int
+  type t = Bottom | I of int [@@deriving sexp_of]
 
   let bottom = Bottom
 

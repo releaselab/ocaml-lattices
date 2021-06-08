@@ -1,6 +1,8 @@
-type lower_bound = [ `LInf | `Int of int ]
+open Core_kernel
 
-type upper_bound = [ `HInf | `Int of int ]
+type lower_bound = [ `LInf | `Int of int ] [@@deriving sexp_of]
+
+type upper_bound = [ `HInf | `Int of int ] [@@deriving sexp_of]
 
 let bound_leq x y =
   match (x, y) with
@@ -57,7 +59,7 @@ let ubound_max x y =
   | `HInf, _ | _, `HInf -> `HInf
   | `Int x, `Int y -> `Int (max x y)
 
-type t = Empty | Interval of lower_bound * upper_bound
+type t = Empty | Interval of lower_bound * upper_bound [@@deriving sexp_of]
 
 let bottom = Empty
 

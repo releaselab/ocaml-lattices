@@ -1,4 +1,4 @@
-type sign = Zero | Pos | Neg
+type sign = Zero | Pos | Neg [@@deriving sexp_of]
 
 type t = sign Flat.flat
 

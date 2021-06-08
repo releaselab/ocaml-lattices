@@ -1,14 +1,14 @@
-type 'a flat = Bottom | Top | Element of 'a
+type 'a flat = Bottom | Top | Element of 'a [@@deriving sexp_of]
 
 module Make (X : sig
-  type t
+  type t [@@deriving sexp_of]
 
   val to_string : t -> string
 
   val equal : t -> t -> bool
 end) =
 struct
-  type t = X.t flat
+  type t = X.t flat [@@deriving sexp_of]
 
   let bottom = Bottom
 

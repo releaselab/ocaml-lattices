@@ -7,7 +7,7 @@ module Make
 struct
   exception Unequal_lengths
 
-  type t = L.t list
+  type t = L.t list [@@deriving sexp_of]
 
   let bottom = List.init N.n ~f:(fun _ -> L.bottom)
 

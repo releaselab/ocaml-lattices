@@ -1,7 +1,7 @@
 module type S = sig
   type elt
 
-  type t = [ `Top | `Some of elt ]
+  type t = [ `Top | `Some of elt ] [@@deriving sexp_of]
 
   include Sig.S with type t := t
 
@@ -9,9 +9,9 @@ module type S = sig
 end
 
 module Make (L : Sig.S) = struct
-  type elt = L.t
+  type elt = L.t [@@deriving sexp_of]
 
-  type t = [ `Top | `Some of elt ]
+  type t = [ `Top | `Some of elt ] [@@deriving sexp_of]
 
   let bottom = `Some L.bottom
 

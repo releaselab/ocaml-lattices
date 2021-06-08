@@ -2,11 +2,9 @@ open Lattices
 open QCheck
 
 module Make (E : sig
-  type t
+  type t [@@deriving sexp_of, eq]
 
   val gen : t Gen.t
-
-  val equal : t -> t -> bool
 
   val to_string : t -> string
 
