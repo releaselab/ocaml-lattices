@@ -2,7 +2,7 @@ open Core_kernel
 open Lattices
 open QCheck
 
-module L : Lcheck.LATTICE = struct
+module L : LCheck.LATTICE = struct
   include
     Powerset.Make_reverse
       (Bool)
@@ -46,6 +46,6 @@ module L : Lcheck.LATTICE = struct
     set_print (fun (a, a') -> "(" ^ to_string a ^ ";" ^ to_string a' ^ ")") a
 end
 
-module LTests = Lcheck.GenericTopTests (L)
+module LTests = LCheck.GenericTopTests (L)
 
 let () = exit (QCheck_base_runner.run_tests LTests.suite)

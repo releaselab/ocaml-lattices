@@ -1,7 +1,7 @@
 open Lattices
 open QCheck
 
-module L : Lcheck.LATTICE = struct
+module L : LCheck.LATTICE = struct
   include Interval
 
   let equal x y = leq x y && leq y x
@@ -78,6 +78,6 @@ module L : Lcheck.LATTICE = struct
     set_print (fun (a, a') -> "(" ^ to_string a ^ ";" ^ to_string a' ^ ")") a
 end
 
-module LTests = Lcheck.GenericTopTests (L)
+module LTests = LCheck.GenericTopTests (L)
 
 let () = exit (QCheck_base_runner.run_tests LTests.suite)

@@ -17,6 +17,6 @@ module L = Flat.Make (struct
   let name = "sign"
 end)
 
-module LTests = Lcheck.GenericTopTests (L)
+module LTests = LCheck.GenericTopTests (L)
 
 let () = exit (QCheck_base_runner.run_tests LTests.suite)

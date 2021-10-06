@@ -1,7 +1,7 @@
 open Core_kernel
 open QCheck
 
-module L : Lcheck.LATTICE_TOPLESS = struct
+module L : LCheck.LATTICE_TOPLESS = struct
   include Lattices.Powerset.Make (Int)
 
   let bot = bottom
@@ -31,6 +31,6 @@ module L : Lcheck.LATTICE_TOPLESS = struct
     set_print (fun (a, a') -> "(" ^ to_string a ^ ";" ^ to_string a' ^ ")") a
 end
 
-module LTests = Lcheck.GenericTests (L)
+module LTests = LCheck.GenericTests (L)
 
 let () = exit (QCheck_base_runner.run_tests LTests.suite)

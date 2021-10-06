@@ -6,7 +6,7 @@ module Make (L : sig
   val gen : t Gen.t
 
   val name : string
-end) : Lcheck.LATTICE = struct
+end) : LCheck.LATTICE = struct
   open Lattices
   include With_top.Make (L)
 
@@ -38,6 +38,6 @@ end) : Lcheck.LATTICE = struct
 end
 
 module L = Make (Int)
-module LTests = Lcheck.GenericTopTests (L)
+module LTests = LCheck.GenericTopTests (L)
 
 let () = exit (QCheck_base_runner.run_tests LTests.suite)

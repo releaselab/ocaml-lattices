@@ -9,7 +9,7 @@ module Make (E : sig
   val to_string : t -> string
 
   val name : string
-end) : Lcheck.LATTICE = struct
+end) : LCheck.LATTICE = struct
   include Flat.Make (E)
 
   let equal x y = leq x y && leq y x
@@ -40,6 +40,6 @@ end) : Lcheck.LATTICE = struct
 end
 
 module L = Make (Int)
-module LTests = Lcheck.GenericTopTests (L)
+module LTests = LCheck.GenericTopTests (L)
 
 let () = exit (QCheck_base_runner.run_tests LTests.suite)

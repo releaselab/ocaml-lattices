@@ -2,6 +2,8 @@
 
 (name lattices)
 
+(version dev)
+
 (generate_opam_files true)
 
 (source
@@ -19,8 +21,7 @@
 
 (package
  (name lattices)
- (synopsis
-  "A library with various implementations and functors of lattices.")
+ (synopsis "A library with various implementations and functors of lattices")
  (depends
   (dune :build)
   core_kernel
@@ -29,4 +30,5 @@
   ppx_deriving
   ppx_string
   (ppx_inline_test :with-test)
-  (qcheck :with-test)))
+  (qcheck :with-test)
+  (lcheck :with-test)))

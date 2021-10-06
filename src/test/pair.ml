@@ -1,6 +1,6 @@
 open QCheck
 
-module L : Lcheck.LATTICE_TOPLESS = struct
+module L : LCheck.LATTICE_TOPLESS = struct
   module L = Int
   open Lattices
   include Pair.Make (L) (L)
@@ -34,6 +34,6 @@ module L : Lcheck.LATTICE_TOPLESS = struct
     set_print (fun (a, a') -> "(" ^ to_string a ^ ";" ^ to_string a' ^ ")") a
 end
 
-module LTests = Lcheck.GenericTests (L)
+module LTests = LCheck.GenericTests (L)
 
 let () = exit (QCheck_base_runner.run_tests LTests.suite)

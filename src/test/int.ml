@@ -53,7 +53,7 @@ module L = struct
 end
 
 include L
-module LTests = Lcheck.GenericTests (L)
+module LTests = LCheck.GenericTests (L)
 
 let () = exit (QCheck_base_runner.run_tests LTests.suite)
 
