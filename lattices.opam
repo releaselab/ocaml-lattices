@@ -5,11 +5,11 @@ synopsis: "A library with various implementations and functors of lattices"
 maintainer: ["João Santos Reis <joao.reis@ubi.pt>"]
 authors: ["João Santos Reis <joao.reis@ubi.pt>"]
 license: "MIT"
-homepage: "https://gitlab.com/releaselab/fresco/lattices"
-bug-reports: "https://gitlab.com/releaselab/fresco/lattices/issues"
+homepage: "https://github.com/releaselab/ocaml-lattices"
+bug-reports: "https://github.com/releaselab/ocaml-lattices/issues"
 depends: [
   "dune" {>= "2.8" & build}
-  "core_kernel"
+  "base"
   "bignum"
   "ppx_sexp_conv"
   "ppx_deriving"
@@ -33,4 +33,4 @@ build: [
     "@doc" {with-doc}
   ]
 ]
-dev-repo: "git+https://gitlab.com/releaselab/fresco/lattices.git"
+dev-repo: "git+https://github.com/releaselab/ocaml-lattices.git"

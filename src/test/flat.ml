@@ -10,9 +10,9 @@ module Make (E : sig
 
   val name : string
 end) : LCheck.LATTICE = struct
-  include Flat.Make (E)
-
-  let equal x y = leq x y && leq y x
+  module L = Flat.Make (E)
+  include L
+  include Lcheck_helper.Make (L)
 
   let name = E.name ^ " lattice"
 

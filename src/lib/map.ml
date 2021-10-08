@@ -1,4 +1,4 @@
-open Core_kernel
+open Base
 
 module Make (D : sig
   include Comparable.S
@@ -13,14 +13,13 @@ end)
 struct
   exception Incompatible_arguments of string
 
-  module Map = Map.Make (D)
-
-  type t = L.t Map.t [@@deriving sexp_of]
+  type t = L.t Map.M(D).t [@@deriving sexp_of]
 
   let bottom =
     Set.fold
       ~f:(fun map x -> Map.set map ~key:x ~data:L.bottom)
-      B.bottom_elems ~init:Map.empty
+      B.bottom_elems
+      ~init:(Map.empty (module D))
 
   let join x y =
     Map.mapi x ~f:(fun ~key ~data ->
@@ -44,7 +43,9 @@ struct
 
   let to_string x =
     let f (key, data) = [%string "%{key#D}: %{data#L}; "] in
-    let s = List.to_string ~f (Map.to_alist x) in
+    let s =
+      List.fold_left (Map.to_alist x) ~f:(fun acc x -> acc ^ f x) ~init:""
+    in
     [%string "[ %{s} ]"]
 
   let set x key data = Map.set x ~key ~data

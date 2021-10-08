@@ -7,11 +7,11 @@
 (generate_opam_files true)
 
 (source
- (uri "git+https://gitlab.com/releaselab/fresco/lattices.git"))
+ (uri "git+https://github.com/releaselab/ocaml-lattices.git"))
 
-(bug_reports "https://gitlab.com/releaselab/fresco/lattices/issues")
+(bug_reports "https://github.com/releaselab/ocaml-lattices/issues")
 
-(homepage "https://gitlab.com/releaselab/fresco/lattices")
+(homepage "https://github.com/releaselab/ocaml-lattices")
 
 (license MIT)
 
@@ -24,7 +24,7 @@
  (synopsis "A library with various implementations and functors of lattices")
  (depends
   (dune :build)
-  core_kernel
+  base
   bignum
   ppx_sexp_conv
   ppx_deriving

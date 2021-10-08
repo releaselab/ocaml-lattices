@@ -1,7 +1,7 @@
 (library
  (name lattices)
  (public_name lattices)
- (libraries core_kernel bignum)
+ (libraries base bignum)
  (inline_tests)
  (preprocess
   (pps

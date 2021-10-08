@@ -3,8 +3,7 @@ open QCheck
 
 module L : LCheck.LATTICE = struct
   include Interval
-
-  let equal x y = leq x y && leq y x
+  include Lcheck_helper.Make (Interval)
 
   let name = "interval lattice"
 
@@ -66,7 +65,7 @@ module L : LCheck.LATTICE = struct
     let gen =
       match e with
       | Empty -> Gen.return bottom
-      | e when equal top e -> arb_elem.gen
+      | e when eq top e -> arb_elem.gen
       | Interval (l, h) ->
           Gen.(
             map mk_element (pair (gen_lbound_ge (l, h)) (gen_hbound_le (l, h))))

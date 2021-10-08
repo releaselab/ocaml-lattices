@@ -8,4 +8,4 @@ module type S = sig
   val top : t
 end
 
-module Make (L : Sig.S) : S with type elt = L.t
+module Make (L : Sig.S) : S with type elt := L.t

@@ -7,9 +7,7 @@ module Make (X : sig
 
   val equal : t -> t -> bool
 end) : sig
-  type t = X.t flat [@@deriving sexp_of]
-
-  include Sig.S with type t := t
+  include Sig.S with type t = X.t flat
 
   val top : t
 

@@ -1,11 +1,9 @@
-open Core_kernel
+open Base
 
 module type S = sig
-  type elt
+  module Elt : Comparable.S
 
-  module Set : Set.S with type Elt.t := elt
-
-  type t = Set.t
+  type t = Set.M(Elt).t
 
   include Sig.S with type t := t
 end
@@ -16,7 +14,7 @@ module Make (D : sig
   include Sexpable.S with type t := t
 
   val to_string : t -> string
-end) : S with type elt = D.t
+end) : S with module Elt = D and type t = Set.M(D).t
 
 module Make_reverse (D : sig
   include Comparable.S
@@ -27,7 +25,7 @@ module Make_reverse (D : sig
 end) (B : sig
   val bottom : Set.M(D).t
 end) : sig
-  include S with type elt = D.t
+  include S with module Elt = D and type t = Set.M(D).t
 
   val top : t
 end
