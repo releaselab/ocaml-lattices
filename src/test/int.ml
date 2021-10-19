@@ -1,10 +1,14 @@
-open Core_kernel
+open Base
 open QCheck
 
 module L = struct
-  type t = Bottom | I of int [@@deriving sexp_of]
+  type elem = Bottom | I of int [@@deriving sexp_of]
 
-  let bottom = Bottom
+  type t = elem [@@deriving sexp_of]
+
+  let bot = Bottom
+
+  let bottom = bot
 
   let leq x y =
     match (x, y) with
@@ -22,17 +26,17 @@ module L = struct
 
   let to_string = function Bottom -> "bottom" | I x -> Int.to_string x
 
-  let bot = bottom
-
-  let equal x y =
+  let eq x y =
     match (x, y) with
     | Bottom, Bottom -> true
     | I x, I y -> x = y
     | I _, Bottom | Bottom, I _ -> false
 
+  let equal = eq
+
   let arb_elem =
     let gen =
-      Gen.(frequency [ (1, return bottom); (2, map (fun i -> I i) int) ])
+      Gen.(frequency [ (1, return bot); (2, map (fun i -> I i) int) ])
     in
     make gen ~print:to_string
 
@@ -55,6 +59,6 @@ end
 include L
 module LTests = LCheck.GenericTests (L)
 
-let () = exit (QCheck_base_runner.run_tests LTests.suite)
+let () = Caml.exit (QCheck_base_runner.run_tests LTests.suite)
 
 let gen = arb_elem.gen

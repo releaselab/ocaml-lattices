@@ -1,4 +1,4 @@
-open Core_kernel
+open Base
 
 module Make (L : Sig.S) = struct
   type t = L.t list [@@deriving sexp_of]

@@ -1,8 +1,10 @@
-open Core_kernel
+open Base
 open QCheck
 
 module L : LCheck.LATTICE_TOPLESS = struct
-  include Lattices.Powerset.Make (Int)
+  module L_1 = Lattices.Powerset.Make (Int)
+  include L_1
+  include Lcheck_helper.Make (L_1)
 
   let bot = bottom
 
@@ -11,7 +13,7 @@ module L : LCheck.LATTICE_TOPLESS = struct
   let name = "powerset lattice"
 
   let arb_elem =
-    let gen = Gen.(map Set.of_list (list int)) in
+    let gen = Gen.(map (Set.of_list (module L_1.Elt)) (list int)) in
     make gen ~print:to_string
 
   let arb_elem_le e =
@@ -33,4 +35,4 @@ end
 
 module LTests = LCheck.GenericTests (L)
 
-let () = exit (QCheck_base_runner.run_tests LTests.suite)
+let () = Caml.exit (QCheck_base_runner.run_tests LTests.suite)

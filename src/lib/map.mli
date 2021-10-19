@@ -1,4 +1,4 @@
-open Core_kernel
+open Base
 
 module Make (D : sig
   include Comparable.S
@@ -10,7 +10,7 @@ end) (B : sig
   val bottom_elems : Set.M(D).t
 end)
 (L : Sig.S) : sig
-  include Sig.S
+  include Sig.S with type t = L.t Map.M(D).t
 
   val set : t -> D.t -> L.t -> t
 

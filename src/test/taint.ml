@@ -1,4 +1,4 @@
-open Core_kernel
+open Base
 open QCheck
 
 module L = Flat.Make (struct
@@ -11,4 +11,4 @@ end)
 
 module LTests = LCheck.GenericTopTests (L)
 
-let () = exit (QCheck_base_runner.run_tests LTests.suite)
+let () = Caml.exit (QCheck_base_runner.run_tests LTests.suite)

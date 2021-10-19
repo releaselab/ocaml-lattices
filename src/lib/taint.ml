@@ -1,4 +1,4 @@
-open Core_kernel
+open Base
 include Flat.Make (Bool)
 
 let join_taint x y =

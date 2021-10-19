@@ -1,11 +1,9 @@
-open Core_kernel
+open Base
 
 module type S = sig
-  type elt
+  module Elt : Comparable.S
 
-  module Set : Set.S with type Elt.t := elt
-
-  type t = Set.t
+  type t = Set.M(Elt).t
 
   include Sig.S with type t := t
 end
@@ -18,13 +16,11 @@ module Make (D : sig
   val to_string : t -> string
 end) =
 struct
-  type elt = D.t
+  module Elt = D
 
-  module Set = Set.Make (D)
+  type t = Set.M(Elt).t [@@deriving sexp_of]
 
-  type t = Set.t [@@deriving sexp_of]
-
-  let bottom = Set.empty
+  let bottom = Set.empty (module Elt)
 
   let join = Set.union
 
@@ -33,8 +29,8 @@ struct
   let leq x y = Set.is_subset x ~of_:y
 
   let to_string x =
-    let f x = [%string "%{x#D};"] in
-    [%string "[ %{List.to_string ~f (Set.to_list x)} ]"]
+    let f x = [%string "%{x#Elt};"] in
+    List.fold_left (Set.to_list x) ~f:(fun acc x -> acc ^ f x) ~init:""
 end
 
 module Make_reverse (D : sig
@@ -47,17 +43,15 @@ end) (B : sig
   val bottom : Set.M(D).t
 end) =
 struct
-  type elt = D.t
+  module Elt = D
 
   let bottom = Set.to_list B.bottom
 
-  module Set = Set.Make (D)
+  type t = Set.M(Elt).t [@@deriving sexp_of]
 
-  type t = Set.t [@@deriving sexp_of]
+  let bottom = Set.of_list (module Elt) bottom
 
-  let bottom = Set.of_list bottom
-
-  let top = Set.empty
+  let top = Set.empty (module Elt)
 
   let join = Set.inter
 
@@ -67,5 +61,5 @@ struct
 
   let to_string x =
     let f x = [%string "%{x#D};"] in
-    [%string "[ %{List.to_string ~f (Set.to_list x)} ]"]
+    List.fold_left (Set.to_list x) ~f:(fun acc x -> acc ^ f x) ~init:""
 end

@@ -3,7 +3,9 @@ open QCheck
 module L : LCheck.LATTICE_TOPLESS = struct
   module L = Int
   open Lattices
-  include Pair.Make (L) (L)
+  module L_1 = Pair.Make (L) (L)
+  include L_1
+  include Lcheck_helper.Make (L_1)
 
   let bot = bottom
 

@@ -8,7 +8,9 @@ module Make (L : sig
   val name : string
 end) : LCheck.LATTICE = struct
   open Lattices
-  include With_top.Make (L)
+  module L_1 = With_top.Make (L)
+  include L_1
+  include Lcheck_helper.Make (L_1)
 
   let equal x y = leq x y && leq y x
 

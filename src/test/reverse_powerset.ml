@@ -1,14 +1,17 @@
-open Core_kernel
+open Base
 open Lattices
 open QCheck
 
 module L : LCheck.LATTICE = struct
-  include
+  module L_1 =
     Powerset.Make_reverse
       (Bool)
       (struct
         let bottom = Set.add (Set.singleton (module Bool) false) true
       end)
+
+  include L_1
+  include Lcheck_helper.Make (L_1)
 
   let bot = bottom
 
@@ -21,9 +24,9 @@ module L : LCheck.LATTICE = struct
       Gen.(
         frequency
           [
-            (1, return Set.empty);
-            (1, return (Set.singleton false));
-            (1, return (Set.singleton true));
+            (1, return (Set.empty (module L_1.Elt)));
+            (1, return (Set.singleton (module L_1.Elt) false));
+            (1, return (Set.singleton (module L_1.Elt) true));
             (1, return bottom);
           ])
     in
@@ -48,4 +51,4 @@ end
 
 module LTests = LCheck.GenericTopTests (L)
 
-let () = exit (QCheck_base_runner.run_tests LTests.suite)
+let () = Caml.exit (QCheck_base_runner.run_tests LTests.suite)

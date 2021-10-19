@@ -1,4 +1,4 @@
-open Core_kernel
+open Base
 
 type lower_bound = [ `LInf | `Int of int ] [@@deriving sexp_of]
 
@@ -37,7 +37,7 @@ let%test _ = bound_leq (`Int 0) (`Int 0)
 let bound_to_string = function
   | `LInf -> "-inf"
   | `HInf -> "+inf"
-  | `Int x -> string_of_int x
+  | `Int x -> Int.to_string x
 
 let lbound_min x y =
   match (x, y) with
